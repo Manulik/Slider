@@ -12,22 +12,38 @@ class App extends Component {
   };
   handleVperedClick = () => {
     this.setState({imgIndex: this.state.imgIndex + 1});
+    if (this.state.imgIndex === this.state.imgArr.length - 1) {
+      this.setState({
+        imgIndex: 0
+      })
+    }
   }
   handleNazadClick = () => {
-    this.setState({imgIndex: this.state.imgIndex - 1});
+    this.setState({
+      imgIndex: this.state.imgIndex - 1
+    })
+    if (this.state.imgIndex === 0) {
+      this.setState({
+        imgIndex: this.state.imgArr.length - 1
+      })
+    }
   }
   render() {
     return (
       <div className="App">
-        <img src={this.state.imgArr[this.state.imgIndex]} />
-        <div className="buttonBlock">
-          {this.state.imgIndex !== 0 && <button className="left" onClick={this.handleNazadClick}></button>}
-          {this.state.imgIndex !== this.state.imgArr.length - 1 && <button className="right" onClick={this.handleVperedClick}></button>}
+        <div className="blockImg">
+          <img src={this.state.imgArr[this.state.imgIndex]} />
         </div>
-        <div className='circes'>
-          this.state.imgArr.map((img, index) => (
-            <div key={img} className={index === this.state.imgIndex ? 'blackCircle' : 'circle'}></div>
-          ))
+        <div className="blockBtn">
+          <button className="left" onClick={this.handleNazadClick}></button>
+          <button className="right" onClick={this.handleVperedClick}></button>
+        </div>
+        <div className="circles">
+          {
+            this.state.imgArr.map((img, index) => (
+              <div key={img} className={index === this.state.imgIndex ? 'blackCircle' : 'circle'}></div>
+            ))
+          }
         </div>
       </div>
     )
